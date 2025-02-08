@@ -5,13 +5,15 @@ dotenv.config();
 
 
 import {connectTODB} from './lib/db.js'
-import userRouter from './routes/auth.route.js'
+import userRoutes from './routes/auth.route.js'
+import messageRoutes from './routes/message.route.js'
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
 //routes
-app.use("/api/users",userRouter)
+app.use("/api/users",userRoutes)
+app.use("/api/message",messageRoutes)
 
 const port = process.env.PORT  || 3000
 app.listen(port, async()=>{
