@@ -7,8 +7,9 @@ dotenv.config();
 import { connectTODB } from "./lib/db.js";
 import userRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
+import { app , server} from "./lib/socket.js";
 
-const app = express();
+
 
 // CORS Configuration
 app.use(cors({
@@ -25,7 +26,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", userRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/messages", messageRoutes);
 
 // Start Server After DB Connection
 const port = process.env.PORT || 3000;
@@ -33,7 +34,7 @@ const port = process.env.PORT || 3000;
     try {
         await connectTODB();
         console.log("✅ Database connected successfully.");
-        app.listen(port, () => {
+        server.listen(port, () => {
             console.log(`🚀 Server is running on port ${port}`);
         });
     } catch (error) {

@@ -9,9 +9,11 @@ import ProfilePage from "./pages/ProfilePage";
 import { useAuthStore } from "./store/useAuthStore";
 import { Loader } from "lucide-react";
 import { useThemeStore } from './store/useThemeStore'
+import { Toaster } from "react-hot-toast";
 const App = () => {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { authUser,onlineUsers, checkAuth, isCheckingAuth } = useAuthStore();
   const { theme } = useThemeStore();
+  console.log({onlineUsers})
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
@@ -22,9 +24,9 @@ const App = () => {
         <Loader className="size-10 animate-spin" />
       </div>
     );
-    console.log(theme)
   return (
     <div data-theme={theme}>
+      <Toaster/>
       <Navbar />
       <Routes>
         <Route path="/" element={authUser ? <HomePage /> : <Navigate to='/login' />} />
